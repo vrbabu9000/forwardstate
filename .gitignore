@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Data: licensed data must never be committed; fixtures are opt-in
+data/*
+!data/fixtures/
+data/fixtures/*
+!data/fixtures/README.md
+*.parquet
+*.duckdb
+*.duckdb.wal
+
+# Secrets (NFR-03)
+.env
+.env.*
+!.env.example
+secrets/
+.streamlit/secrets.toml
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

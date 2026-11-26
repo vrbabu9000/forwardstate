@@ -1,0 +1,45 @@
+%% ForwardState architecture v1 (Phase 1 MVP). Render: npx -y @mermaid-js/mermaid-cli@11.4.2 -i <this> -o <png|pdf>
+flowchart LR
+  subgraph SRC["Open data sources"]
+    Y["Yahoo Finance<br/>prices · splits/dividends<br/>earnings · analyst actions"]
+    F["FRED<br/>DFF · DGS2 · DGS10 · target range"]
+    C["Fed calendar<br/>FOMC dates (YAML)"]
+    E["SEC EDGAR<br/>filings (disabled until<br/>User-Agent is set)"]
+  end
+
+  subgraph ENGINE["Python engine · src/forwardstate"]
+    I["1 · ingest/<br/>source adapters<br/>forwardstate fetch"]
+    S[("2 · storage/<br/>point-in-time DuckDB<br/>append-only versions<br/>as-of queries")]
+    EV["3 · events/<br/>classify · price shocks<br/>event studies (CAR)"]
+    FC["4 · forecasting/<br/>block bootstrap<br/>3 scenarios × 3 horizons"]
+    PF["5 · portfolio/ + risk/<br/>CVaR · drawdown<br/>candidates · optimizer"]
+    AL["6 · alerts/<br/>rules · lifecycle · replay"]
+    IND["industries/financials<br/>sector plug-in"]
+  end
+
+  subgraph API["FastAPI · api/"]
+    R["/api routes<br/>no trading endpoints"]
+    RR[("run registry<br/>hashes · reproduce")]
+  end
+
+  UI["React UI · web/<br/>Research · Portfolio<br/>Events & alerts · Settings<br/>Run provenance"]
+  U(["Investor decides.<br/>ForwardState never trades."])
+
+  Y --> I
+  F --> I
+  C --> I
+  E -.-> I
+  I --> S
+  S --> EV --> FC --> PF --> AL
+  S --> FC
+  S --> PF
+  S --> AL
+  IND -.-> EV
+  IND -.-> FC
+  EV --> R
+  FC --> R
+  PF --> R
+  AL --> R
+  R <--> RR
+  R <--> UI
+  UI --> U

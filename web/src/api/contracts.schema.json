@@ -1,0 +1,2877 @@
+{
+  "$defs": {
+    "ActionOption": {
+      "additionalProperties": false,
+      "description": "A candidate response. Never an instruction.",
+      "properties": {
+        "cvar_95": {
+          "title": "Cvar 95",
+          "type": "number"
+        },
+        "est_cost": {
+          "default": 0.0,
+          "title": "Est Cost",
+          "type": "number"
+        },
+        "expected_return": {
+          "title": "Expected Return",
+          "type": "number"
+        },
+        "label": {
+          "description": "e.g. 'Hold (no change)', 'Move 25% to cash'.",
+          "title": "Label",
+          "type": "string"
+        },
+        "missed_upside": {
+          "default": 0.0,
+          "description": "Upside given up in the optimistic case, in currency (vs hold).",
+          "title": "Missed Upside",
+          "type": "number"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "projected_loss": {
+          "description": "Scenario loss in currency (positive = loss).",
+          "title": "Projected Loss",
+          "type": "number"
+        },
+        "weights": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Weights",
+          "type": "object"
+        }
+      },
+      "required": [
+        "label",
+        "weights",
+        "expected_return",
+        "cvar_95",
+        "projected_loss",
+        "est_cost",
+        "missed_upside",
+        "note"
+      ],
+      "title": "ActionOption",
+      "type": "object"
+    },
+    "Alert": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_security_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected Security Ids",
+          "type": "array"
+        },
+        "alert_id": {
+          "title": "Alert Id",
+          "type": "string"
+        },
+        "alternatives": {
+          "items": {
+            "$ref": "#/$defs/ActionOption"
+          },
+          "title": "Alternatives",
+          "type": "array"
+        },
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence"
+        },
+        "current_exposure": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Current Exposure",
+          "type": "object"
+        },
+        "decision_boundary": {
+          "default": "ForwardState is decision support only. It does not trade, route orders or move money. You decide whether and how to act.",
+          "title": "Decision Boundary",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceItem"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expires At"
+        },
+        "horizon": {
+          "$ref": "#/$defs/Horizon"
+        },
+        "horizon_trading_days": {
+          "title": "Horizon Trading Days",
+          "type": "integer"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "metric_value": {
+          "title": "Metric Value",
+          "type": "number"
+        },
+        "portfolio_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Portfolio Id"
+        },
+        "probability": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Simulated; uncalibrated in MVP.",
+          "title": "Probability"
+        },
+        "projected_loss": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Currency, positive = loss.",
+          "title": "Projected Loss"
+        },
+        "projected_loss_pct": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Projected Loss Pct"
+        },
+        "rule_id": {
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "rule_version": {
+          "title": "Rule Version",
+          "type": "integer"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/AlertSeverity"
+        },
+        "status": {
+          "$ref": "#/$defs/AlertStatus",
+          "default": "new"
+        },
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        },
+        "superseded_by": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Superseded By"
+        },
+        "threshold": {
+          "title": "Threshold",
+          "type": "number"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "triggering_event_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Triggering Event Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "alert_id",
+        "run_id",
+        "portfolio_id",
+        "rule_id",
+        "rule_version",
+        "severity",
+        "status",
+        "as_of",
+        "horizon",
+        "horizon_trading_days",
+        "title",
+        "summary",
+        "triggering_event_ids",
+        "affected_security_ids",
+        "current_exposure",
+        "metric_value",
+        "threshold",
+        "projected_loss",
+        "projected_loss_pct",
+        "probability",
+        "confidence",
+        "limitations",
+        "evidence",
+        "alternatives",
+        "expires_at",
+        "superseded_by",
+        "decision_boundary"
+      ],
+      "title": "Alert",
+      "type": "object"
+    },
+    "AlertMetric": {
+      "enum": [
+        "forecast_drawdown",
+        "downside_probability",
+        "realized_loss",
+        "concentration",
+        "event_severity"
+      ],
+      "title": "AlertMetric",
+      "type": "string"
+    },
+    "AlertRule": {
+      "additionalProperties": false,
+      "properties": {
+        "cooldown_trading_days": {
+          "default": 5,
+          "title": "Cooldown Trading Days",
+          "type": "integer"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "horizon": {
+          "$ref": "#/$defs/Horizon",
+          "default": "short"
+        },
+        "lookback_trading_days": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "For REALIZED_LOSS.",
+          "title": "Lookback Trading Days"
+        },
+        "loss_level": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Loss x for DOWNSIDE_PROBABILITY.",
+          "title": "Loss Level"
+        },
+        "metric": {
+          "$ref": "#/$defs/AlertMetric"
+        },
+        "rule_id": {
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/AlertSeverity",
+          "default": "warning"
+        },
+        "threshold": {
+          "title": "Threshold",
+          "type": "number"
+        },
+        "version": {
+          "default": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "rule_id",
+        "version",
+        "description",
+        "metric",
+        "horizon",
+        "threshold",
+        "loss_level",
+        "lookback_trading_days",
+        "severity",
+        "cooldown_trading_days",
+        "enabled"
+      ],
+      "title": "AlertRule",
+      "type": "object"
+    },
+    "AlertSeverity": {
+      "enum": [
+        "info",
+        "warning",
+        "high",
+        "critical"
+      ],
+      "title": "AlertSeverity",
+      "type": "string"
+    },
+    "AlertStatus": {
+      "enum": [
+        "new",
+        "acknowledged",
+        "resolved",
+        "superseded"
+      ],
+      "title": "AlertStatus",
+      "type": "string"
+    },
+    "AlertsRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As Of"
+        },
+        "assumptions": {
+          "$ref": "#/$defs/ScenarioAssumptions"
+        },
+        "portfolio": {
+          "$ref": "#/$defs/Portfolio"
+        },
+        "rule_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rule Ids"
+        }
+      },
+      "required": [
+        "as_of",
+        "portfolio",
+        "rule_ids",
+        "assumptions"
+      ],
+      "title": "AlertsRequest",
+      "type": "object"
+    },
+    "Allocation": {
+      "additionalProperties": false,
+      "properties": {
+        "est_cost": {
+          "default": 0.0,
+          "title": "Est Cost",
+          "type": "number"
+        },
+        "label": {
+          "description": "'current', 'no change', 'balanced', 'min risk', 'defensive'...",
+          "title": "Label",
+          "type": "string"
+        },
+        "metrics": {
+          "$ref": "#/$defs/RiskMetrics"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        },
+        "scenario_pnl": {
+          "items": {
+            "$ref": "#/$defs/ScenarioPnL"
+          },
+          "title": "Scenario Pnl",
+          "type": "array"
+        },
+        "turnover": {
+          "default": 0.0,
+          "title": "Turnover",
+          "type": "number"
+        },
+        "weights": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Weights",
+          "type": "object"
+        }
+      },
+      "required": [
+        "label",
+        "weights",
+        "metrics",
+        "scenario_pnl",
+        "turnover",
+        "est_cost",
+        "notes"
+      ],
+      "title": "Allocation",
+      "type": "object"
+    },
+    "AnalystAction": {
+      "enum": [
+        "upgrade",
+        "downgrade",
+        "initiate",
+        "maintain",
+        "target_change",
+        "other"
+      ],
+      "title": "AnalystAction",
+      "type": "string"
+    },
+    "AnalystObservation": {
+      "additionalProperties": false,
+      "description": "An analyst view: evidence, never observed fact (EVT-03).",
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/AnalystAction"
+        },
+        "analyst_source": {
+          "description": "Firm or source name.",
+          "title": "Analyst Source",
+          "type": "string"
+        },
+        "assumptions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Assumptions"
+        },
+        "availability_inferred": {
+          "default": false,
+          "description": "True when available_at was inferred by a D007 rule.",
+          "title": "Availability Inferred",
+          "type": "boolean"
+        },
+        "available_at": {
+          "description": "When this record became knowable (UTC).",
+          "format": "date-time",
+          "title": "Available At",
+          "type": "string"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Confidence"
+        },
+        "from_rating": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "From Rating"
+        },
+        "horizon_months": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Horizon Months"
+        },
+        "ingested_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ingested At"
+        },
+        "issued_at": {
+          "format": "date-time",
+          "title": "Issued At",
+          "type": "string"
+        },
+        "observation_id": {
+          "title": "Observation Id",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/DataOrigin",
+          "default": "real"
+        },
+        "prior_target_price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Prior Target Price"
+        },
+        "revised_from": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Revised From"
+        },
+        "security_id": {
+          "title": "Security Id",
+          "type": "string"
+        },
+        "source_id": {
+          "description": "Source adapter id, e.g. 'yahoo', 'fred', 'edgar'.",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "target_price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Price"
+        },
+        "to_rating": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "To Rating"
+        }
+      },
+      "required": [
+        "source_id",
+        "origin",
+        "available_at",
+        "availability_inferred",
+        "ingested_at",
+        "observation_id",
+        "analyst_source",
+        "security_id",
+        "action",
+        "from_rating",
+        "to_rating",
+        "target_price",
+        "prior_target_price",
+        "horizon_months",
+        "assumptions",
+        "issued_at",
+        "revised_from",
+        "confidence"
+      ],
+      "title": "AnalystObservation",
+      "type": "object"
+    },
+    "Confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "unavailable"
+      ],
+      "title": "Confidence",
+      "type": "string"
+    },
+    "Constraints": {
+      "additionalProperties": false,
+      "description": "MVP defaults: long-only, no leverage, no shorting, USD (BRD p.7).",
+      "properties": {
+        "allow_leverage": {
+          "default": false,
+          "title": "Allow Leverage",
+          "type": "boolean"
+        },
+        "cash_annual_yield": {
+          "default": 0.0,
+          "description": "Decimal. Not assumed zero-risk.",
+          "title": "Cash Annual Yield",
+          "type": "number"
+        },
+        "long_only": {
+          "default": true,
+          "title": "Long Only",
+          "type": "boolean"
+        },
+        "max_cash_weight": {
+          "default": 1.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Max Cash Weight",
+          "type": "number"
+        },
+        "max_position_weight": {
+          "default": 0.4,
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Max Position Weight",
+          "type": "number"
+        },
+        "max_turnover": {
+          "anyOf": [
+            {
+              "maximum": 2,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Turnover"
+        },
+        "min_cash_weight": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Min Cash Weight",
+          "type": "number"
+        },
+        "risk_aversion": {
+          "default": 3.0,
+          "minimum": 0,
+          "title": "Risk Aversion",
+          "type": "number"
+        },
+        "transaction_cost_bps": {
+          "default": 5.0,
+          "minimum": 0,
+          "title": "Transaction Cost Bps",
+          "type": "number"
+        }
+      },
+      "required": [
+        "max_position_weight",
+        "min_cash_weight",
+        "max_cash_weight",
+        "max_turnover",
+        "risk_aversion",
+        "cash_annual_yield",
+        "transaction_cost_bps",
+        "long_only",
+        "allow_leverage"
+      ],
+      "title": "Constraints",
+      "type": "object"
+    },
+    "DataMode": {
+      "enum": [
+        "replay",
+        "live"
+      ],
+      "title": "DataMode",
+      "type": "string"
+    },
+    "DataOrigin": {
+      "description": "Where a record came from. Always shown in the UI.",
+      "enum": [
+        "real",
+        "derived",
+        "synthetic"
+      ],
+      "title": "DataOrigin",
+      "type": "string"
+    },
+    "Direction": {
+      "enum": [
+        "up",
+        "down",
+        "neutral",
+        "unknown"
+      ],
+      "title": "Direction",
+      "type": "string"
+    },
+    "Event": {
+      "additionalProperties": false,
+      "properties": {
+        "actual_outcome": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Actual Outcome"
+        },
+        "affected_security_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected Security Ids",
+          "type": "array"
+        },
+        "availability_inferred": {
+          "default": false,
+          "description": "True when available_at was inferred by a D007 rule.",
+          "title": "Availability Inferred",
+          "type": "boolean"
+        },
+        "available_at": {
+          "description": "When this record became knowable (UTC).",
+          "format": "date-time",
+          "title": "Available At",
+          "type": "string"
+        },
+        "canonical_event_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Set when this record duplicates another (EVT-04).",
+          "title": "Canonical Event Id"
+        },
+        "event_class": {
+          "$ref": "#/$defs/EventClass"
+        },
+        "event_id": {
+          "title": "Event Id",
+          "type": "string"
+        },
+        "expected_outcome": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Outcome"
+        },
+        "ingested_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ingested At"
+        },
+        "occurred_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Occurred At"
+        },
+        "origin": {
+          "$ref": "#/$defs/DataOrigin",
+          "default": "real"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published At"
+        },
+        "revision": {
+          "default": 0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "scheduled_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scheduled At"
+        },
+        "scope": {
+          "$ref": "#/$defs/EventScope"
+        },
+        "source_id": {
+          "description": "Source adapter id, e.g. 'yahoo', 'fred', 'edgar'.",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_ids": {
+          "description": "Raw source references/URLs.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/$defs/EventStatus"
+        },
+        "subtype": {
+          "description": "Sector taxonomy key, e.g. 'quarterly_results', 'fomc_meeting', 'filing_8k', 'price_shock', 'rate_change'.",
+          "title": "Subtype",
+          "type": "string"
+        },
+        "surprise": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Relative surprise as a decimal: (actual - expected) / |expected|; -0.03 = -3%.",
+          "title": "Surprise"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "origin",
+        "available_at",
+        "availability_inferred",
+        "ingested_at",
+        "event_id",
+        "event_class",
+        "subtype",
+        "title",
+        "status",
+        "scope",
+        "scheduled_at",
+        "occurred_at",
+        "published_at",
+        "affected_security_ids",
+        "source_ids",
+        "expected_outcome",
+        "actual_outcome",
+        "surprise",
+        "revision",
+        "canonical_event_id"
+      ],
+      "title": "Event",
+      "type": "object"
+    },
+    "EventClass": {
+      "enum": [
+        "scheduled",
+        "anticipated",
+        "unexpected"
+      ],
+      "title": "EventClass",
+      "type": "string"
+    },
+    "EventScope": {
+      "enum": [
+        "firm",
+        "sector",
+        "market"
+      ],
+      "title": "EventScope",
+      "type": "string"
+    },
+    "EventStatus": {
+      "enum": [
+        "upcoming",
+        "occurred",
+        "revised",
+        "cancelled"
+      ],
+      "title": "EventStatus",
+      "type": "string"
+    },
+    "EvidenceItem": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "At"
+        },
+        "kind": {
+          "description": "'event', 'analyst', 'price', 'macro', 'model'.",
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/DataOrigin",
+          "default": "real"
+        },
+        "ref_id": {
+          "title": "Ref Id",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "kind",
+        "ref_id",
+        "label",
+        "at",
+        "origin",
+        "url"
+      ],
+      "title": "EvidenceItem",
+      "type": "object"
+    },
+    "FeasibilityIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "description": "e.g. 'weights_sum', 'max_position', 'cash_bounds', 'unknown_security'.",
+          "title": "Code",
+          "type": "string"
+        },
+        "field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "field"
+      ],
+      "title": "FeasibilityIssue",
+      "type": "object"
+    },
+    "ForecastRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Default: latest data.",
+          "title": "As Of"
+        },
+        "assumptions": {
+          "$ref": "#/$defs/ScenarioAssumptions"
+        },
+        "horizons": {
+          "items": {
+            "$ref": "#/$defs/Horizon"
+          },
+          "title": "Horizons",
+          "type": "array"
+        },
+        "security_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Security Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "as_of",
+        "security_ids",
+        "horizons",
+        "assumptions"
+      ],
+      "title": "ForecastRequest",
+      "type": "object"
+    },
+    "ForecastRun": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "assumptions": {
+          "$ref": "#/$defs/ScenarioAssumptions"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "data_cutoff": {
+          "format": "date-time",
+          "title": "Data Cutoff",
+          "type": "string"
+        },
+        "forecasts": {
+          "items": {
+            "$ref": "#/$defs/SecurityForecast"
+          },
+          "title": "Forecasts",
+          "type": "array"
+        },
+        "horizons": {
+          "items": {
+            "$ref": "#/$defs/Horizon"
+          },
+          "title": "Horizons",
+          "type": "array"
+        },
+        "input_hash": {
+          "title": "Input Hash",
+          "type": "string"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "security_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Security Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "run_id",
+        "as_of",
+        "data_cutoff",
+        "security_ids",
+        "horizons",
+        "assumptions",
+        "forecasts",
+        "model_version",
+        "input_hash",
+        "created_at"
+      ],
+      "title": "ForecastRun",
+      "type": "object"
+    },
+    "Holding": {
+      "additionalProperties": false,
+      "properties": {
+        "security_id": {
+          "title": "Security Id",
+          "type": "string"
+        },
+        "weight": {
+          "description": "Fraction of portfolio value. Long-only MVP.",
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "security_id",
+        "weight"
+      ],
+      "title": "Holding",
+      "type": "object"
+    },
+    "Horizon": {
+      "enum": [
+        "short",
+        "medium",
+        "long"
+      ],
+      "title": "Horizon",
+      "type": "string"
+    },
+    "ImpactEstimate": {
+      "additionalProperties": false,
+      "description": "Historical (realized) or forward (estimated) impact of an event on one security (EVT-05).",
+      "properties": {
+        "abnormal_return": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Benchmark-adjusted cumulative abnormal return (CAR), decimal.",
+          "title": "Abnormal Return"
+        },
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "benchmark_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Benchmark Id"
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence"
+        },
+        "direction": {
+          "$ref": "#/$defs/Direction"
+        },
+        "duration_days": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration Days"
+        },
+        "event_day_return": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Event Day Return"
+        },
+        "event_id": {
+          "title": "Event Id",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "expected_return_impact": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Return Impact"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Association, not proven causation.",
+          "title": "Note"
+        },
+        "post_event_drift": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Post Event Drift"
+        },
+        "probability": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Only if calibrated; else None.",
+          "title": "Probability"
+        },
+        "realized": {
+          "description": "True = measured after the fact; False = forward estimate.",
+          "title": "Realized",
+          "type": "boolean"
+        },
+        "sample_size": {
+          "default": 0,
+          "title": "Sample Size",
+          "type": "integer"
+        },
+        "security_id": {
+          "title": "Security Id",
+          "type": "string"
+        },
+        "t_stat": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "T Stat"
+        },
+        "uncertainty": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Std. dev. of the estimate.",
+          "title": "Uncertainty"
+        },
+        "window_post_days": {
+          "title": "Window Post Days",
+          "type": "integer"
+        },
+        "window_pre_days": {
+          "title": "Window Pre Days",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "event_id",
+        "security_id",
+        "realized",
+        "window_pre_days",
+        "window_post_days",
+        "direction",
+        "abnormal_return",
+        "event_day_return",
+        "post_event_drift",
+        "t_stat",
+        "expected_return_impact",
+        "probability",
+        "duration_days",
+        "uncertainty",
+        "benchmark_id",
+        "method",
+        "sample_size",
+        "confidence",
+        "as_of",
+        "evidence_ids",
+        "note"
+      ],
+      "title": "ImpactEstimate",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "properties": {
+        "app": {
+          "default": "ForwardState",
+          "title": "App",
+          "type": "string"
+        },
+        "contract_version": {
+          "default": "1.0.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "data_origin": {
+          "$ref": "#/$defs/DataOrigin",
+          "description": "'real' when the Yahoo cache is loaded, else 'synthetic'."
+        },
+        "disclaimer": {
+          "default": "ForwardState is decision support only. It does not trade, route orders or move money. You decide whether and how to act.",
+          "title": "Disclaimer",
+          "type": "string"
+        },
+        "mode": {
+          "$ref": "#/$defs/DataMode",
+          "default": "replay"
+        },
+        "sector": {
+          "default": "financials",
+          "title": "Sector",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "app",
+        "version",
+        "contract_version",
+        "mode",
+        "data_origin",
+        "sector",
+        "disclaimer"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "Observation": {
+      "additionalProperties": false,
+      "description": "A fundamental or macro data point (DATA-02, DATA-03).",
+      "properties": {
+        "availability_inferred": {
+          "default": false,
+          "description": "True when available_at was inferred by a D007 rule.",
+          "title": "Availability Inferred",
+          "type": "boolean"
+        },
+        "available_at": {
+          "description": "When this record became knowable (UTC).",
+          "format": "date-time",
+          "title": "Available At",
+          "type": "string"
+        },
+        "economy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Economy"
+        },
+        "ingested_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ingested At"
+        },
+        "metric_id": {
+          "description": "e.g. 'DFF', 'DGS10', 'DGS2', 'eps_actual', 'eps_estimate'.",
+          "title": "Metric Id",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/DataOrigin",
+          "default": "real"
+        },
+        "period_end": {
+          "format": "date",
+          "title": "Period End",
+          "type": "string"
+        },
+        "release_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Release At"
+        },
+        "security_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Security Id"
+        },
+        "source_id": {
+          "description": "Source adapter id, e.g. 'yahoo', 'fred', 'edgar'.",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "unit": {
+          "description": "e.g. 'percent', 'usd_per_share', 'usd'.",
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "vintage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vintage"
+        }
+      },
+      "required": [
+        "source_id",
+        "origin",
+        "available_at",
+        "availability_inferred",
+        "ingested_at",
+        "metric_id",
+        "security_id",
+        "economy",
+        "period_end",
+        "value",
+        "unit",
+        "release_at",
+        "vintage"
+      ],
+      "title": "Observation",
+      "type": "object"
+    },
+    "PeerComparison": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "base_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Base Date"
+        },
+        "focal_id": {
+          "title": "Focal Id",
+          "type": "string"
+        },
+        "series": {
+          "items": {
+            "$ref": "#/$defs/PeerSeries"
+          },
+          "title": "Series",
+          "type": "array"
+        }
+      },
+      "required": [
+        "focal_id",
+        "base_date",
+        "as_of",
+        "series"
+      ],
+      "title": "PeerComparison",
+      "type": "object"
+    },
+    "PeerSeries": {
+      "additionalProperties": false,
+      "properties": {
+        "max_drawdown": {
+          "title": "Max Drawdown",
+          "type": "number"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/RebasedPoint"
+          },
+          "title": "Points",
+          "type": "array"
+        },
+        "security_id": {
+          "title": "Security Id",
+          "type": "string"
+        },
+        "total_return": {
+          "title": "Total Return",
+          "type": "number"
+        },
+        "volatility_annual": {
+          "title": "Volatility Annual",
+          "type": "number"
+        }
+      },
+      "required": [
+        "security_id",
+        "points",
+        "total_return",
+        "volatility_annual",
+        "max_drawdown"
+      ],
+      "title": "PeerSeries",
+      "type": "object"
+    },
+    "Portfolio": {
+      "additionalProperties": false,
+      "properties": {
+        "base_currency": {
+          "default": "USD",
+          "title": "Base Currency",
+          "type": "string"
+        },
+        "constraints": {
+          "$ref": "#/$defs/Constraints"
+        },
+        "holdings": {
+          "items": {
+            "$ref": "#/$defs/Holding"
+          },
+          "title": "Holdings",
+          "type": "array"
+        },
+        "horizon": {
+          "$ref": "#/$defs/Horizon",
+          "default": "medium"
+        },
+        "name": {
+          "default": "My portfolio",
+          "title": "Name",
+          "type": "string"
+        },
+        "portfolio_id": {
+          "default": "default",
+          "title": "Portfolio Id",
+          "type": "string"
+        },
+        "total_value": {
+          "exclusiveMinimum": 0,
+          "title": "Total Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "portfolio_id",
+        "name",
+        "base_currency",
+        "total_value",
+        "holdings",
+        "horizon",
+        "constraints"
+      ],
+      "title": "Portfolio",
+      "type": "object"
+    },
+    "PortfolioEvaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/Allocation"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "correlation": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object"
+          },
+          "title": "Correlation",
+          "type": "object"
+        },
+        "current": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Allocation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "disclaimer": {
+          "default": "ForwardState is decision support only. It does not trade, route orders or move money. You decide whether and how to act.",
+          "title": "Disclaimer",
+          "type": "string"
+        },
+        "feasible": {
+          "title": "Feasible",
+          "type": "boolean"
+        },
+        "input_hash": {
+          "title": "Input Hash",
+          "type": "string"
+        },
+        "issues": {
+          "items": {
+            "$ref": "#/$defs/FeasibilityIssue"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "portfolio_id": {
+          "title": "Portfolio Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "as_of",
+        "portfolio_id",
+        "feasible",
+        "issues",
+        "current",
+        "candidates",
+        "correlation",
+        "model_version",
+        "input_hash",
+        "disclaimer"
+      ],
+      "title": "PortfolioEvaluation",
+      "type": "object"
+    },
+    "PortfolioRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As Of"
+        },
+        "assumptions": {
+          "$ref": "#/$defs/ScenarioAssumptions"
+        },
+        "portfolio": {
+          "$ref": "#/$defs/Portfolio"
+        }
+      },
+      "required": [
+        "as_of",
+        "portfolio",
+        "assumptions"
+      ],
+      "title": "PortfolioRequest",
+      "type": "object"
+    },
+    "PricePoint": {
+      "additionalProperties": false,
+      "properties": {
+        "close": {
+          "description": "Adjusted close as of the query.",
+          "title": "Close",
+          "type": "number"
+        },
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        },
+        "raw_close": {
+          "title": "Raw Close",
+          "type": "number"
+        },
+        "volume": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Volume"
+        }
+      },
+      "required": [
+        "date",
+        "close",
+        "raw_close",
+        "volume"
+      ],
+      "title": "PricePoint",
+      "type": "object"
+    },
+    "PriceSeries": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/DataOrigin"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/PricePoint"
+          },
+          "title": "Points",
+          "type": "array"
+        },
+        "security_id": {
+          "title": "Security Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "security_id",
+        "as_of",
+        "origin",
+        "points"
+      ],
+      "title": "PriceSeries",
+      "type": "object"
+    },
+    "RebasedPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        },
+        "value": {
+          "description": "Rebased to 100 at the first common date.",
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "date",
+        "value"
+      ],
+      "title": "RebasedPoint",
+      "type": "object"
+    },
+    "ReplayFrame": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "format": "date",
+          "title": "As Of",
+          "type": "string"
+        },
+        "limitations": {
+          "description": "Data failures at this step (RISK-05).",
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "metrics": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RiskMetrics"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "new_alert_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "New Alert Ids",
+          "type": "array"
+        },
+        "portfolio_value": {
+          "description": "Value of the held (no-change) portfolio.",
+          "title": "Portfolio Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "as_of",
+        "portfolio_value",
+        "metrics",
+        "new_alert_ids",
+        "limitations"
+      ],
+      "title": "ReplayFrame",
+      "type": "object"
+    },
+    "ReplayRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "assumptions": {
+          "$ref": "#/$defs/ScenarioAssumptions"
+        },
+        "end": {
+          "format": "date",
+          "title": "End",
+          "type": "string"
+        },
+        "portfolio": {
+          "$ref": "#/$defs/Portfolio"
+        },
+        "rule_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rule Ids"
+        },
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        },
+        "step_trading_days": {
+          "default": 1,
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Step Trading Days",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "portfolio",
+        "start",
+        "end",
+        "step_trading_days",
+        "rule_ids",
+        "assumptions"
+      ],
+      "title": "ReplayRequest",
+      "type": "object"
+    },
+    "ReplayResult": {
+      "additionalProperties": false,
+      "properties": {
+        "alerts": {
+          "items": {
+            "$ref": "#/$defs/Alert"
+          },
+          "title": "Alerts",
+          "type": "array"
+        },
+        "end": {
+          "format": "date",
+          "title": "End",
+          "type": "string"
+        },
+        "frames": {
+          "items": {
+            "$ref": "#/$defs/ReplayFrame"
+          },
+          "title": "Frames",
+          "type": "array"
+        },
+        "input_hash": {
+          "title": "Input Hash",
+          "type": "string"
+        },
+        "mode": {
+          "default": "replay",
+          "title": "Mode",
+          "type": "string"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "start",
+        "end",
+        "frames",
+        "alerts",
+        "model_version",
+        "input_hash",
+        "mode"
+      ],
+      "title": "ReplayResult",
+      "type": "object"
+    },
+    "ReproduceResult": {
+      "additionalProperties": false,
+      "properties": {
+        "match": {
+          "title": "Match",
+          "type": "boolean"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "original_output_hash": {
+          "title": "Original Output Hash",
+          "type": "string"
+        },
+        "reproduced_output_hash": {
+          "title": "Reproduced Output Hash",
+          "type": "string"
+        },
+        "reproduced_run_id": {
+          "title": "Reproduced Run Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "reproduced_run_id",
+        "original_output_hash",
+        "reproduced_output_hash",
+        "match",
+        "note"
+      ],
+      "title": "ReproduceResult",
+      "type": "object"
+    },
+    "RiskMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "cash_weight": {
+          "default": 0.0,
+          "title": "Cash Weight",
+          "type": "number"
+        },
+        "concentration_hhi": {
+          "title": "Concentration Hhi",
+          "type": "number"
+        },
+        "cvar_95": {
+          "description": "Expected loss in the worst 5% (CVaR), positive fraction.",
+          "title": "Cvar 95",
+          "type": "number"
+        },
+        "expected_return": {
+          "description": "Decimal over the horizon.",
+          "title": "Expected Return",
+          "type": "number"
+        },
+        "horizon": {
+          "$ref": "#/$defs/Horizon"
+        },
+        "horizon_trading_days": {
+          "title": "Horizon Trading Days",
+          "type": "integer"
+        },
+        "largest_position": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Largest Position"
+        },
+        "largest_weight": {
+          "default": 0.0,
+          "title": "Largest Weight",
+          "type": "number"
+        },
+        "max_drawdown_est": {
+          "description": "Median simulated max drawdown, positive fraction.",
+          "title": "Max Drawdown Est",
+          "type": "number"
+        },
+        "prob_loss_exceeds": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "e.g. {'0.05': 0.18}: P(loss > 5%) \u2014 simulated, uncalibrated.",
+          "title": "Prob Loss Exceeds",
+          "type": "object"
+        },
+        "var_95": {
+          "description": "95% Value-at-Risk as a positive loss fraction.",
+          "title": "Var 95",
+          "type": "number"
+        },
+        "volatility": {
+          "description": "Std. dev. of horizon return, decimal.",
+          "title": "Volatility",
+          "type": "number"
+        }
+      },
+      "required": [
+        "horizon",
+        "horizon_trading_days",
+        "expected_return",
+        "volatility",
+        "var_95",
+        "cvar_95",
+        "max_drawdown_est",
+        "prob_loss_exceeds",
+        "concentration_hhi",
+        "largest_position",
+        "largest_weight",
+        "cash_weight"
+      ],
+      "title": "RiskMetrics",
+      "type": "object"
+    },
+    "RunKind": {
+      "enum": [
+        "forecast",
+        "portfolio",
+        "optimize",
+        "alerts",
+        "replay"
+      ],
+      "title": "RunKind",
+      "type": "string"
+    },
+    "RunRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "As Of"
+        },
+        "config_hash": {
+          "title": "Config Hash",
+          "type": "string"
+        },
+        "contract_version": {
+          "default": "1.0.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "data_cutoff": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Data Cutoff"
+        },
+        "data_origin": {
+          "$ref": "#/$defs/DataOrigin"
+        },
+        "input_hash": {
+          "title": "Input Hash",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/RunKind"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "output_hash": {
+          "title": "Output Hash",
+          "type": "string"
+        },
+        "request": {
+          "additionalProperties": true,
+          "description": "The exact request, so the run can be reproduced.",
+          "title": "Request",
+          "type": "object"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "source_status": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Source Status",
+          "type": "array"
+        }
+      },
+      "required": [
+        "run_id",
+        "kind",
+        "created_at",
+        "as_of",
+        "data_cutoff",
+        "model_version",
+        "contract_version",
+        "config_hash",
+        "input_hash",
+        "output_hash",
+        "request",
+        "data_origin",
+        "source_status"
+      ],
+      "title": "RunRecord",
+      "type": "object"
+    },
+    "ScenarioAssumptions": {
+      "additionalProperties": false,
+      "description": "User-editable assumptions (AC-02). Zero/neutral defaults mean 'history only'.",
+      "properties": {
+        "analyst_weight": {
+          "default": 0.25,
+          "description": "Weight on analyst targets vs history in the base case.",
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Analyst Weight",
+          "type": "number"
+        },
+        "earnings_surprise_pct": {
+          "default": 0.0,
+          "description": "Assumed next-earnings surprise vs expectations, percent.",
+          "title": "Earnings Surprise Pct",
+          "type": "number"
+        },
+        "lookback_years": {
+          "default": 5.0,
+          "exclusiveMinimum": 0,
+          "maximum": 25,
+          "title": "Lookback Years",
+          "type": "number"
+        },
+        "market_return_shift_pct": {
+          "default": 0.0,
+          "description": "Shift to the annualised market (benchmark) return, percent.",
+          "title": "Market Return Shift Pct",
+          "type": "number"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        },
+        "rate_change_bps": {
+          "default": 0.0,
+          "description": "Assumed Fed funds change, basis points.",
+          "title": "Rate Change Bps",
+          "type": "number"
+        },
+        "volatility_multiplier": {
+          "default": 1.0,
+          "description": "Scales historical volatility.",
+          "exclusiveMinimum": 0,
+          "title": "Volatility Multiplier",
+          "type": "number"
+        }
+      },
+      "required": [
+        "rate_change_bps",
+        "earnings_surprise_pct",
+        "market_return_shift_pct",
+        "volatility_multiplier",
+        "analyst_weight",
+        "lookback_years",
+        "notes"
+      ],
+      "title": "ScenarioAssumptions",
+      "type": "object"
+    },
+    "ScenarioForecast": {
+      "additionalProperties": false,
+      "properties": {
+        "assumptions_applied": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumptions Applied",
+          "type": "array"
+        },
+        "interval_coverage": {
+          "description": "Nominal coverage, e.g. 0.8 for a 10-90% band.",
+          "title": "Interval Coverage",
+          "type": "number"
+        },
+        "interval_high": {
+          "title": "Interval High",
+          "type": "number"
+        },
+        "interval_low": {
+          "description": "Lower price bound of the stated interval.",
+          "title": "Interval Low",
+          "type": "number"
+        },
+        "probability": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Only if calibrated (Phase 2).",
+          "title": "Probability"
+        },
+        "projected_price": {
+          "title": "Projected Price",
+          "type": "number"
+        },
+        "projected_return": {
+          "description": "Price return over the horizon, decimal.",
+          "title": "Projected Return",
+          "type": "number"
+        },
+        "quantile": {
+          "description": "Quantile of the return distribution this scenario uses.",
+          "title": "Quantile",
+          "type": "number"
+        },
+        "scenario": {
+          "$ref": "#/$defs/ScenarioName"
+        }
+      },
+      "required": [
+        "scenario",
+        "quantile",
+        "projected_return",
+        "projected_price",
+        "interval_low",
+        "interval_high",
+        "interval_coverage",
+        "probability",
+        "assumptions_applied"
+      ],
+      "title": "ScenarioForecast",
+      "type": "object"
+    },
+    "ScenarioName": {
+      "enum": [
+        "optimistic",
+        "base",
+        "pessimistic"
+      ],
+      "title": "ScenarioName",
+      "type": "string"
+    },
+    "ScenarioPnL": {
+      "additionalProperties": false,
+      "properties": {
+        "pnl": {
+          "description": "In base currency.",
+          "title": "Pnl",
+          "type": "number"
+        },
+        "return_pct": {
+          "description": "Decimal, 0.05 = 5%.",
+          "title": "Return Pct",
+          "type": "number"
+        },
+        "scenario": {
+          "$ref": "#/$defs/ScenarioName"
+        }
+      },
+      "required": [
+        "scenario",
+        "return_pct",
+        "pnl"
+      ],
+      "title": "ScenarioPnL",
+      "type": "object"
+    },
+    "Security": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "default": "USD",
+          "title": "Currency",
+          "type": "string"
+        },
+        "investable": {
+          "default": true,
+          "title": "Investable",
+          "type": "boolean"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/$defs/SecurityRole"
+        },
+        "sector": {
+          "title": "Sector",
+          "type": "string"
+        },
+        "security_id": {
+          "description": "Stable id. MVP uses the ticker, e.g. 'JPM', 'CASH'.",
+          "title": "Security Id",
+          "type": "string"
+        },
+        "ticker": {
+          "title": "Ticker",
+          "type": "string"
+        }
+      },
+      "required": [
+        "security_id",
+        "ticker",
+        "name",
+        "sector",
+        "currency",
+        "role",
+        "investable"
+      ],
+      "title": "Security",
+      "type": "object"
+    },
+    "SecurityForecast": {
+      "additionalProperties": false,
+      "properties": {
+        "drivers": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "Named contributions to the base-case return.",
+          "title": "Drivers",
+          "type": "object"
+        },
+        "feature_snapshot_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Feature Snapshot Id"
+        },
+        "horizon": {
+          "$ref": "#/$defs/Horizon"
+        },
+        "horizon_trading_days": {
+          "title": "Horizon Trading Days",
+          "type": "integer"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "return_type": {
+          "default": "price",
+          "title": "Return Type",
+          "type": "string"
+        },
+        "sample_size": {
+          "default": 0,
+          "title": "Sample Size",
+          "type": "integer"
+        },
+        "scenarios": {
+          "items": {
+            "$ref": "#/$defs/ScenarioForecast"
+          },
+          "title": "Scenarios",
+          "type": "array"
+        },
+        "security_id": {
+          "title": "Security Id",
+          "type": "string"
+        },
+        "start_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Date"
+        },
+        "start_price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Start Price"
+        },
+        "status": {
+          "$ref": "#/$defs/Confidence"
+        },
+        "status_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Status Reason"
+        }
+      },
+      "required": [
+        "security_id",
+        "horizon",
+        "horizon_trading_days",
+        "return_type",
+        "start_price",
+        "start_date",
+        "scenarios",
+        "status",
+        "status_reason",
+        "method",
+        "model_version",
+        "feature_snapshot_id",
+        "sample_size",
+        "drivers"
+      ],
+      "title": "SecurityForecast",
+      "type": "object"
+    },
+    "SecurityRole": {
+      "enum": [
+        "focal",
+        "peer",
+        "benchmark",
+        "defensive"
+      ],
+      "title": "SecurityRole",
+      "type": "string"
+    },
+    "Settings": {
+      "additionalProperties": false,
+      "properties": {
+        "alert_rules": {
+          "items": {
+            "$ref": "#/$defs/AlertRule"
+          },
+          "title": "Alert Rules",
+          "type": "array"
+        },
+        "assumptions": {
+          "$ref": "#/$defs/ScenarioAssumptions"
+        },
+        "constraints": {
+          "$ref": "#/$defs/Constraints"
+        },
+        "default_portfolio": {
+          "$ref": "#/$defs/Portfolio"
+        },
+        "horizon_days": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "propertyNames": {
+            "$ref": "#/$defs/Horizon"
+          },
+          "title": "Horizon Days",
+          "type": "object"
+        }
+      },
+      "required": [
+        "horizon_days",
+        "constraints",
+        "assumptions",
+        "alert_rules",
+        "default_portfolio"
+      ],
+      "title": "Settings",
+      "type": "object"
+    },
+    "SourceHealth": {
+      "enum": [
+        "fresh",
+        "stale",
+        "missing",
+        "error",
+        "disabled"
+      ],
+      "title": "SourceHealth",
+      "type": "string"
+    },
+    "SourceStatus": {
+      "additionalProperties": false,
+      "description": "Freshness of one source (NFR-02, AC-07 freshness states).",
+      "properties": {
+        "health": {
+          "$ref": "#/$defs/SourceHealth"
+        },
+        "last_fetched_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Fetched At"
+        },
+        "latest_record_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latest Record Date"
+        },
+        "message": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Message"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "record_count": {
+          "default": 0,
+          "title": "Record Count",
+          "type": "integer"
+        },
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "name",
+        "health",
+        "last_fetched_at",
+        "latest_record_date",
+        "record_count",
+        "message"
+      ],
+      "title": "SourceStatus",
+      "type": "object"
+    },
+    "TransitionRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "to_status": {
+          "$ref": "#/$defs/AlertStatus"
+        }
+      },
+      "required": [
+        "to_status",
+        "note"
+      ],
+      "title": "TransitionRequest",
+      "type": "object"
+    }
+  },
+  "title": "ForwardState contracts 1.0.0"
+}

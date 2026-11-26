@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+/* ---------- tokens ---------- */
+:root {
+  --bg: #e9eef0;
+  --surface: #ffffff;
+  --surface-2: #f3f6f7;
+  --surface-3: #e3e9ec;
+  --ink: #132330;
+  --ink-2: #33444f;
+  --muted: #5a6b76;
+  --line: #d2dbdf;
+  --line-strong: #b4c1c8;
+  --accent: #1c5a78;
+  --accent-soft: #dcebf2;
+  --accent-ink: #ffffff;
+  --focus: #0b74a8;
+
+  --opt: #2c7a57;
+  --base: #1c5a78;
+  --pes: #b0463b;
+  --opt-soft: #ddefe5;
+  --pes-soft: #f6e1dd;
+
+  --ev-scheduled: #1c5a78;
+  --ev-anticipated: #8a6510;
+  --ev-unexpected: #b0463b;
+  --ev-derived: #6553a6;
+
+  --ok: #2c7a57;
+  --warn: #8a6510;
+  --warn-soft: #f6ecd3;
+  --danger: #b0463b;
+  --danger-soft: #f6e1dd;
+  --info: #1c5a78;
+
+  --tape-a: #f3e7c4;
+  --tape-b: #ead9a8;
+  --tape-ink: #4f3b06;
+
+  --series-1: #1c5a78;
+  --series-2: #c2762a;
+  --series-3: #2c7a57;
+  --series-4: #8a4f9e;
+  --series-5: #a8433b;
+  --series-6: #7a8790;
+
+  --shadow: 0 1px 0 rgba(19, 35, 48, 0.04), 0 1px 2px rgba(19, 35, 48, 0.06);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e171d;
+    --surface: #142129;
+    --surface-2: #192933;
+    --surface-3: #21343f;
+    --ink: #dfe8ec;
+    --ink-2: #c0ced5;
+    --muted: #93a6b0;
+    --line: #263a45;
+    --line-strong: #3a515d;
+    --accent: #7bbad8;
+    --accent-soft: #1d3644;
+    --accent-ink: #0e171d;
+    --focus: #8fd0f0;
+    --opt: #6cc59b;
+    --base: #7bbad8;
+    --pes: #ea8d7f;
+    --opt-soft: #183428;
+    --pes-soft: #3a2220;
+    --ev-scheduled: #7bbad8;
+    --ev-anticipated: #dcb85a;
+    --ev-unexpected: #ea8d7f;
+    --ev-derived: #ab9cf0;
+    --ok: #6cc59b;
+    --warn: #dcb85a;
+    --warn-soft: #362d14;
+    --danger: #ea8d7f;
+    --danger-soft: #3a2220;
+    --info: #7bbad8;
+    --tape-a: #2e2812;
+    --tape-b: #3a3217;
+    --tape-ink: #ecd894;
+    --series-1: #7bbad8;
+    --series-2: #e5a15a;
+    --series-3: #6cc59b;
+    --series-4: #c49be0;
+    --series-5: #ea8d7f;
+    --series-6: #94a3ab;
+    --shadow: none;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0e171d;
+  --surface: #142129;
+  --surface-2: #192933;
+  --surface-3: #21343f;
+  --ink: #dfe8ec;
+  --ink-2: #c0ced5;
+  --muted: #93a6b0;
+  --line: #263a45;
+  --line-strong: #3a515d;
+  --accent: #7bbad8;
+  --accent-soft: #1d3644;
+  --accent-ink: #0e171d;
+  --focus: #8fd0f0;
+  --opt: #6cc59b;
+  --base: #7bbad8;
+  --pes: #ea8d7f;
+  --opt-soft: #183428;
+  --pes-soft: #3a2220;
+  --ev-scheduled: #7bbad8;
+  --ev-anticipated: #dcb85a;
+  --ev-unexpected: #ea8d7f;
+  --ev-derived: #ab9cf0;
+  --ok: #6cc59b;
+  --warn: #dcb85a;
+  --warn-soft: #362d14;
+  --danger: #ea8d7f;
+  --danger-soft: #3a2220;
+  --info: #7bbad8;
+  --tape-a: #2e2812;
+  --tape-b: #3a3217;
+  --tape-ink: #ecd894;
+  --series-1: #7bbad8;
+  --series-2: #e5a15a;
+  --series-3: #6cc59b;
+  --series-4: #c49be0;
+  --series-5: #ea8d7f;
+  --series-6: #94a3ab;
+  --shadow: none;
+  color-scheme: dark;
+}
+
+@theme {
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader", ui-serif, Georgia, serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-opt: var(--opt);
+  --color-scen-base: var(--base);
+  --color-pes: var(--pes);
+  --color-opt-soft: var(--opt-soft);
+  --color-pes-soft: var(--pes-soft);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-ev-scheduled: var(--ev-scheduled);
+  --color-ev-anticipated: var(--ev-anticipated);
+  --color-ev-unexpected: var(--ev-unexpected);
+  --color-ev-derived: var(--ev-derived);
+  --color-tape-ink: var(--tape-ink);
+}
+
+/* ---------- base ---------- */
+@layer base {
+
+html, body { background: var(--bg); color: var(--ink); }
+body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.45;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+::selection { background: var(--accent-soft); }
+
+h1, h2, h3 { color: var(--ink); }
+.serif { font-family: var(--font-serif); font-optical-sizing: auto; }
+
+}
+
+@layer components {
+/* Replay tape: diagonal hatch says "not live" without words, the words say it too. */
+.tape {
+  background: repeating-linear-gradient(-45deg, var(--tape-a) 0 10px, var(--tape-b) 10px 20px);
+  color: var(--tape-ink);
+}
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; box-shadow: var(--shadow); }
+.inset { background: var(--surface-2); border-radius: 4px; }
+
+.field {
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  padding: 5px 8px;
+  color: var(--ink);
+  min-height: 32px;
+  font-variant-numeric: tabular-nums;
+}
+.field:disabled { opacity: .6; }
+.field[aria-invalid="true"] { border-color: var(--danger); background: var(--danger-soft); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 32px; padding: 0 12px; border-radius: 4px;
+  font-weight: 600; font-size: 13px;
+  border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+}
+.btn:hover:not(:disabled) { background: var(--surface-2); }
+.btn:disabled { opacity: .55; cursor: not-allowed; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover:not(:disabled) { background: var(--accent); filter: brightness(1.08); }
+.btn-quiet { border-color: transparent; background: transparent; color: var(--accent); padding: 0 6px; }
+.btn-quiet:hover:not(:disabled) { background: var(--accent-soft); }
+
+table.data { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+table.data th { text-align: left; font-weight: 600; color: var(--muted); font-size: 12px; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+table.data td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.data tr:last-child td { border-bottom: 0; }
+table.data .num { text-align: right; white-space: nowrap; }
+
+.scroll-x { position: relative; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Recharts text colour follows the theme */
+.recharts-cartesian-axis-tick-value { fill: var(--muted); font-size: 11px; }
+.recharts-legend-item-text { color: var(--ink-2) !important; }

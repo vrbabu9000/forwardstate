@@ -1,0 +1,54 @@
+# EXAMPLE values only. None of these thresholds or horizons are approved
+# (see BRD p.15, "Decisions requiring stakeholder approval").
+version: 0.2.0
+base_currency: USD
+horizon_days:          # suggested defaults, BRD p.6 (trading days)
+  short: 20
+  medium: 126
+  long: 504
+constraints:           # proposed MVP defaults, BRD p.7 (fields = contracts.Constraints)
+  max_position_weight: 0.40
+  min_cash_weight: 0.0
+  max_cash_weight: 1.0
+  max_turnover: null
+  risk_aversion: 3.0
+  cash_annual_yield: 0.04     # illustrative; cash is not assumed zero-return
+  transaction_cost_bps: 5.0
+alert_rules:           # fields = contracts.AlertRule
+  - rule_id: forecast_loss_short
+    description: Simulated 20-day CVaR(95%) loss above 5% of portfolio (illustrative BRD p.8 threshold, not approved).
+    metric: forecast_drawdown
+    horizon: short
+    threshold: 0.05
+    severity: high
+    cooldown_trading_days: 5
+  - rule_id: downside_prob_short
+    description: Simulated probability of a 20-day loss above 5% exceeds 20%.
+    metric: downside_probability
+    horizon: short
+    loss_level: 0.05
+    threshold: 0.20
+    severity: warning
+    cooldown_trading_days: 5
+  - rule_id: realized_loss_5d
+    description: Portfolio fell more than 4% over the last 5 trading days.
+    metric: realized_loss
+    horizon: short
+    lookback_trading_days: 5
+    threshold: 0.04
+    severity: high
+    cooldown_trading_days: 5
+  - rule_id: concentration
+    description: Largest single position above 40% of portfolio.
+    metric: concentration
+    horizon: medium
+    threshold: 0.40
+    severity: info
+    cooldown_trading_days: 20
+  - rule_id: event_shock
+    description: An event with a benchmark-adjusted move above 5% on a held security.
+    metric: event_severity
+    horizon: short
+    threshold: 0.05
+    severity: warning
+    cooldown_trading_days: 5

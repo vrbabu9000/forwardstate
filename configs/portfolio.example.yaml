@@ -1,0 +1,13 @@
+# Illustrative demo portfolio (fields = contracts.Portfolio). Not a recommendation.
+portfolio_id: demo
+name: Demo bank portfolio
+base_currency: USD
+total_value: 100000
+horizon: medium
+holdings:
+  - {security_id: JPM, weight: 0.30}
+  - {security_id: BAC, weight: 0.15}
+  - {security_id: C, weight: 0.15}
+  - {security_id: MS, weight: 0.15}
+  - {security_id: GS, weight: 0.15}
+  - {security_id: CASH, weight: 0.10}

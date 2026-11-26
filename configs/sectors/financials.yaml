@@ -1,0 +1,29 @@
+# Financials sector module (MVP). Universe is [Agreed] in the BRD;
+# indicators and event types are the BRD's listed examples, not a final taxonomy.
+sector: financials
+version: 0.1.0
+currency: USD
+focal: JPM
+universe:
+  - {ticker: JPM, name: JPMorgan Chase, role: focal}
+  - {ticker: BAC, name: Bank of America, role: peer}
+  - {ticker: C, name: Citigroup, role: peer}
+  - {ticker: MS, name: Morgan Stanley, role: peer}
+  - {ticker: GS, name: Goldman Sachs, role: peer}
+benchmarks:          # analytical inputs, not investable
+  - {ticker: SPY, name: SPDR S&P 500 ETF, role: market}
+  - {ticker: XLF, name: Financial Select Sector SPDR, role: sector}
+defensive_assets:
+  - {ticker: CASH, name: Cash / liquid equivalents, internal: true}  # exact instruments not selected
+indicators:
+  - fed_funds_rate
+  - yield_curve
+  - net_interest_income
+  - credit_losses
+  - capital_requirements
+  - quarterly_earnings
+  - regulatory_compliance_risk
+event_classes:
+  scheduled: [quarterly_results, earnings_call, fomc_meeting]
+  anticipated: [rate_change, government_policy, regulatory_development]
+  unexpected: [breaking_news, company_incident, external_shock]
